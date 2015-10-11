@@ -186,7 +186,7 @@ def pause():
     pause_label = pause_font.render("PAUSED", 1, (255, 255, 255))
     window.blit(pause_label, (180, 300))
     pygame.display.flip()
-    print "paused"
+    print("paused")
     wait_for_input()
 
 
@@ -337,7 +337,7 @@ def main():
                     pause()
                 if event.key == pygame.K_SPACE:
 #                     level += 1
-                    print frog.rect.x, frog.rect.y
+                    print(frog.rect.x, frog.rect.y)
                 if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                     frog.left()
                 if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
