@@ -74,8 +74,8 @@ kScoreLevel=1000
 kScoreUp=10
 kScoreTime=10
 
-if not pygame.font: print 'Warning, fonts disabled'
-if not pygame.mixer: print 'Warning, sound disabled'
+if not pygame.font: print('Warning, fonts disabled'
+if not pygame.mixer: print('Warning, sound disabled'
 
 # Classes for our game objects
 
@@ -183,9 +183,9 @@ class Frog(FrogSprite):
             r=self.get_rect()
             index=r.collidelist(self.game.homes)
             if index<0:
-                print "miss home at %.0f,%.0f" % self.get_pos()
+                print("miss home at %.0f,%.0f" % self.get_pos())
                 for i in self.game.homes:
-                    print "\thome (%d,%d)-(%d,%d)" % (i.left,i.top,i.right,i.bottom)
+                    print("\thome (%d,%d)-(%d,%d)" % (i.left,i.top,i.right,i.bottom))
                 self.hit(None)
             else:
                 target=self.game.homeFrogged[index]
@@ -196,10 +196,10 @@ class Frog(FrogSprite):
                     self.initial()
                     if target==None:
                         score=kScoreHome
-                        print "hit home %d (total %d)" % (index,self.game.frogged)
+                        print("hit home %d (total %d)" % (index,self.game.frogged))
                     else:
                         score=kScoreHomeFly+kScoreHome
-                        print "hit home %d with fly bonus (total %d)" % (index,self.game.frogged)
+                        print("hit home %d with fly bonus (total %d)" % (index,self.game.frogged))
                     score+=+kScoreTime*self.game.screen.time.get_value()
                     self.game.score.add_score(score)
                     if self.game.frogged==5:
@@ -207,22 +207,22 @@ class Frog(FrogSprite):
                         self.game.score.add_score(kScoreLevel)
                 elif isinstance(target,HomeCrocodile):
                     self.hit(None)
-                    print "hit home %d with crocodile" % index
+                    print("hit home %d with crocodile" % index)
                 elif isinstance(target,Frog):
-                    print "hit home %d allready frogged : error" % index
+                    print("hit home %d allready frogged : error" % index)
         elif y<kPlayYRiverLimit:    # river zone
             r=pygame.sprite.spritecollide(self,self.game.rivers,False)
             if len(r)==0:
-                print "fall in river at %.0f,%.0f" % self.get_pos()
+                print("fall in river at %.0f,%.0f" % self.get_pos())
                 self.hit(None)
             elif isinstance(r[0],Turtle) and r[0].dive:
-                print "turtle dive at %.0f,%.0f" % self.get_pos()
+                print("turtle dive at %.0f,%.0f" % self.get_pos())
                 self.hit(None)
             else:
                 self.attach(r[0])
         else:     # road zone
             for car in pygame.sprite.spritecollide(self,self.game.cars,False):
-                print "hit by a car at %.0f,%.0f" % self.get_pos()
+                print("hit by a car at %.0f,%.0f" % self.get_pos())
                 self.hit(car)
 
     def set_image(self):
@@ -281,9 +281,9 @@ class HomeFly(FSprite):
             if self in self.game.homeFrogged:
                 index=self.game.homeFrogged.index(self)
                 self.game.homeFrogged[index]=None
-                print "remove fly at %d" % index
+                print("remove fly at %d" % index)
             else:
-                print "remove fly, no index found"
+                print("remove fly, no index found")
             self.kill()
         
 class HomeCrocodile(FSprite):
@@ -303,9 +303,9 @@ class HomeCrocodile(FSprite):
             if self in self.game.homeFrogged:
                 index=self.game.homeFrogged.index(self)
                 self.game.homeFrogged[index]=None
-                print "remove crocodile at %d" % index
+                print("remove crocodile at %d" % index)
             else:
-                print "remove crocodile, no index found"
+                print("remove crocodile, no index found")
             self.kill()
 
 class LifeFrog(FSprite):
@@ -471,7 +471,7 @@ class SampleGame(FGame):
             screen=PlayScreen(self,name)
         else:
             self.screen=None
-            print "error, screen %s do not exist"  
+            print("error, screen %s do not exist")
 
     def update(self):
         self.fps.set_text("FPS: %.0f" % self.screen.clock.get_fps())
@@ -591,7 +591,7 @@ class GenericMenuScreen(FScreen):
                 elif event.key==K_f:    # F : display frame-rate on screen
                     self.game.showFPS=not self.game.showFPS
                 else:
-                    print "no keyin object to handle this key"
+                    print("no keyin object to handle this key")
                     
         #mouse handling
         if event.type==MOUSEBUTTONDOWN:
@@ -882,17 +882,17 @@ class PlayScreen(FScreen):
             index=int(5*random.random())
             if self.game.homeFrogged[index]==None:
                 self.game.homeFrogged[index]=HomeFly(self.game,self.game.homes[index])
-                print "fly at %d" % index
+                print("fly at %d" % index)
             else:
-                print "fly at %d impossible" % index
+                print("fly at %d impossible" % index)
         
         if self.bonusCrocodile.get_chance(self.game.get_clock()):
             index=int(5*random.random())
             if self.game.homeFrogged[index]==None:
                 self.game.homeFrogged[index]=HomeCrocodile(self.game,self.game.homes[index])
-                print "crocodile at %d" % index
+                print("crocodile at %d" % index)
             else:
-                print "crocodile at %d impossible" % index
+                print("crocodile at %d impossible" % index)
         
         #handle frog's death
         if not self.frog.alive():
@@ -925,7 +925,7 @@ class PlayScreen(FScreen):
                  self.frog.move_request((0,+1))
        
 def main():
-    print "-- Sample FGame log --------------------------"
+    print("-- Sample FGame log --------------------------")
     
     # create the game container
     game=SampleGame(False)
